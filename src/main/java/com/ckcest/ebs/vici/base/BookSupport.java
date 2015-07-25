@@ -10,5 +10,8 @@ package com.ckcest.ebs.vici.base;
  */
 
 public class BookSupport {
-
+	public static int FIRST_LEVEL = 1;
+	public static int SECOND_LEVEL = 2;
+	public static int THIRD_LEVEL = 3;
+	
 }

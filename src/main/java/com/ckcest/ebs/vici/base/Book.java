@@ -51,6 +51,9 @@ public class Book {
 			if(catalog.startsWith("第") && catalog.contains("章")){
 				firstLevelCatalogs.add(catalog);
 				
+				for(i = i + 1; i < catalogs.size(); i ++){
+					
+				}
 			}
 		}
 	}
