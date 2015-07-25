@@ -22,41 +22,17 @@ public class Book {
 	//书的分类
 	private String clc;
 	
-	private List<String> firstLevelCatalogs;
-	
-	private Map<Integer,List<String>> secondLevelCatalogs;
+	private Map<Integer,List<String>> sameHieCatalogs; 
 	
 	public Book(String bookNo , String clc){
 		this.bookNo = bookNo;
 		this.clc = clc;
 		
 		catalogs = new ArrayList<String>();
-		firstLevelCatalogs = new ArrayList<String>();
-		secondLevelCatalogs = new HashMap<Integer,List<String>>();
+		sameHieCatalogs = new HashMap<Integer,List<String>>();
 	}
 	
 	
-	/**
-	 * @Function: splitCatalogs
-	 * @Description: 将目录分成两个层次
-	 * @param     
-	 * @return void    
-	 * @date 2015年7月25日 下午7:49:11
-	 * @throws
-	 */
-		
-	public void splitCatalogs(){
-		for(int i = 0; i < catalogs.size(); i ++){
-			String catalog = catalogs.get(i);
-			if(catalog.startsWith("第") && catalog.contains("章")){
-				firstLevelCatalogs.add(catalog);
-				
-				for(i = i + 1; i < catalogs.size(); i ++){
-					
-				}
-			}
-		}
-	}
 	
 	/**
 	 * @return bookNo
@@ -106,30 +82,24 @@ public class Book {
 		this.clc = clc;
 	}
 
-	/**
-	 * @return firstLevelCatalogs
-	 */
-	
-	public List<String> getFirstLevelCatalogs() {
-		return firstLevelCatalogs;
-	}
+
 
 	/**
-	 * @param firstLevelCatalogs 要设置的 firstLevelCatalogs
+	 * @return sameHieCatalogs
 	 */
 	
-	public void setFirstLevelCatalogs(List<String> firstLevelCatalogs) {
-		this.firstLevelCatalogs = firstLevelCatalogs;
+	public Map<Integer, List<String>> getSameHieCatalogs() {
+		return sameHieCatalogs;
 	}
 
 
+
 	/**
-	 * @param secondLevelCatalogs 要设置的 secondLevelCatalogs
+	 * @param sameHieCatalogs 要设置的 sameHieCatalogs
 	 */
 	
-	public void setSecondLevelCatalogs(
-			Map<Integer, List<String>> secondLevelCatalogs) {
-		this.secondLevelCatalogs = secondLevelCatalogs;
+	public void setSameHieCatalogs(Map<Integer, List<String>> sameHieCatalogs) {
+		this.sameHieCatalogs = sameHieCatalogs;
 	}
 
 	

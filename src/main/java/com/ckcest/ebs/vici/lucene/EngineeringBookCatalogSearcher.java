@@ -95,6 +95,18 @@ public class EngineeringBookCatalogSearcher {
 		return l;
 	}
 	
+	
+	/**
+	 * @Function: getCatalogListByBookNo
+	 * @Description: TODO
+	 * @param @param BookNo
+	 * @param @return
+	 * @param @throws IOException    
+	 * @return List<String>    
+	 * @date 2015年7月25日 下午11:43:47
+	 * @throws
+	 */
+		
 	public static List<String> getCatalogListByBookNo(String BookNo) throws IOException{
 		List<String> res = new ArrayList<String>();
 		
@@ -111,7 +123,6 @@ public class EngineeringBookCatalogSearcher {
 			//chapter = ChapterStringProcess.preProcessChapter(chapter);
 			//chapter = HanZiConversion.convert2SimplifiedChinese(chapter);
 			res.add(chapter);
-			//System.out.println(chapter);
 			
 		}
 		
