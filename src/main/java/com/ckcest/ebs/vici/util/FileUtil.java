@@ -4,7 +4,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
  
 /**
@@ -99,4 +103,56 @@ public class FileUtil {
 		overWrite2File(sb.toString(), out_path);
 	}
 	
+	
+	/**
+	 * @Function: writeSet2File
+	 * @Description: TODO
+	 * @param @param set
+	 * @param @param out_path
+	 * @param @throws IOException    
+	 * @return void    
+	 * @date 2015年7月23日 下午10:10:21
+	 * @throws
+	 */
+		
+	public static void writeSet2File(Set<String> set, String out_path) throws IOException{
+		StringBuilder sb = new StringBuilder();
+		
+		for(String s : set){
+			sb.append(s + "\n");
+		}
+		
+		overWrite2File(sb.toString(), out_path);
+	}
+	
+	
+	/**
+	 * @Function: writeMap2File
+	 * @Description: TODO
+	 * @param @param m
+	 * @param @param out_path
+	 * @param @throws IOException    
+	 * @return void    
+	 * @date 2015年7月23日 下午10:10:18
+	 * @throws
+	 */
+		
+	public static void writeMap2File(Map<String,Integer> m, String out_path) throws IOException{
+		StringBuilder sb = new StringBuilder();
+		
+		for(String s : m.keySet()){
+			sb.append(s + "->" + String.valueOf(m.get(s)) + "\n");
+		}
+		
+		overWrite2File(sb.toString(), out_path);
+	}
+	
+	
+	public static void writeArrayList2File(ArrayList<Entry<String,Integer>> array, String out_path) throws IOException{
+		StringBuilder sb = new StringBuilder();
+		for(Entry<String,Integer> entry : array){
+			sb.append(entry.getKey() + "->" + entry.getValue() + "\n");
+		}
+		overWrite2File(sb.toString(), out_path);
+	}
 }

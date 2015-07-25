@@ -1,10 +1,14 @@
 package com.ckcest.ebs.vici.extraction;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import com.ckcest.ebs.vici.base.Book;
+import com.ckcest.ebs.vici.base.FocusData;
+import com.ckcest.ebs.vici.base.TopicData;
+import com.ckcest.ebs.vici.base.TopicFocusPairData;
 
  
 /**
@@ -21,6 +25,7 @@ public class TopicFocusExtraction {
 	
 	
 	/**
+	 * @throws IOException 
 	 * @Function: extract
 	 * @Description: 按每一本书进行处理
 	 * @param @param book    
@@ -29,7 +34,7 @@ public class TopicFocusExtraction {
 	 * @throws
 	 */
 		
-	public static void extract(Book book){
+	public static void extract(Book book) throws IOException{
 		String bookNo = book.getBookNo();
 		String clc = book.getClc();
 		
@@ -39,10 +44,12 @@ public class TopicFocusExtraction {
 			String catalog = catalogs.get(i);
 			extractCatalog(catalog);
 		}
+		
 	}
 	
 	
 	/**
+	 * @throws IOException 
 	 * @Function: extractCatalog
 	 * @Description: 对每一个目录进行抽取，抽取的关键
 	 * @param @param catalog    
@@ -51,7 +58,7 @@ public class TopicFocusExtraction {
 	 * @throws
 	 */
 		
-	public static void extractCatalog(String catalog){
+	public static void extractCatalog(String catalog) throws IOException{
 		//处理“的”的情况
 		if(catalog.contains("的")){
 			String[] arr = catalog.split("的");
@@ -59,8 +66,23 @@ public class TopicFocusExtraction {
 				String initTopic = arr[0];
 				String initFocus = arr[1];
 				
-				log.info("Topic: " + initTopic);
-				log.info("focus: " + initFocus);
+				if(TopicSupport.isInBaikeEntrey(initTopic)){
+					TopicData.topicSet.add(initTopic);
+					Integer topicNum = TopicData.topic2Num.get(initTopic);
+					TopicData.topic2Num.put(initTopic, topicNum == null ? 1:topicNum + 1);
+					
+					String pair = initTopic + "--->" + initFocus;
+					TopicFocusPairData.topicFocusPair.add(pair);
+					Integer pairNum = TopicFocusPairData.pairNum.get(pair);
+					TopicFocusPairData.pairNum.put(pair, pairNum == null ? 1 : pairNum +1);
+				}
+				
+				FocusData.focusSet.add(initFocus);
+				Integer focusNum = FocusData.focus2Num.get(initFocus);
+				FocusData.focus2Num.put(initFocus, focusNum == null ? 1 : focusNum + 1);
+				
+				//log.info("Topic: " + initTopic);
+				//log.info("focus: " + initFocus);
 			}
 			
 		}

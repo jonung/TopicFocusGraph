@@ -95,7 +95,7 @@ public class EngineeringBookCatalogSearcher {
 		return l;
 	}
 	
-	public static List<String> getCatalogListByBookNO(String BookNo) throws IOException{
+	public static List<String> getCatalogListByBookNo(String BookNo) throws IOException{
 		List<String> res = new ArrayList<String>();
 		
 		Term term = new Term("BookNo",BookNo);
@@ -107,8 +107,9 @@ public class EngineeringBookCatalogSearcher {
 			Document doc = indexSearcher.doc(hits[i].doc);
 			String chapter = doc.get("Chapter");
 			
-			
-			chapter = HanZiConversion.convert2SimplifiedChinese(chapter);
+			log.debug(chapter);
+			//chapter = ChapterStringProcess.preProcessChapter(chapter);
+			//chapter = HanZiConversion.convert2SimplifiedChinese(chapter);
 			res.add(chapter);
 			//System.out.println(chapter);
 			

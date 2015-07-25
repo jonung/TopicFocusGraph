@@ -1,5 +1,9 @@
 package com.ckcest.ebs.vici.util;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
  
 /**
  * @ClassName: ChapterStringProcess
@@ -11,6 +15,16 @@ package com.ckcest.ebs.vici.util;
 	 
 public class ChapterStringProcess {
 	
+	public static int FIRST_LEVEL = 1;
+	public static int SECOND_LEVEL = 1;
+	
+	public Map<String,Integer> getChapterLevel(List<String> catalogs){
+		Map<String,Integer> res = new HashMap<String,Integer>();
+		for(int i = 0; i < catalogs.size(); i ++){
+			
+		}
+		return res;
+	}
 	
 	/**
 	 * @Function: preProcessChapter

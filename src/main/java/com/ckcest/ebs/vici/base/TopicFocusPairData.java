@@ -14,7 +14,7 @@ import java.util.Set;
  * @version V1.0  
  */
 
-public class TopicFocusData {
+public class TopicFocusPairData {
 	//存储 topic---->focus 对
 	public static Set<String> topicFocusPair = new HashSet<String>();
 	//存储pair的出现次数
