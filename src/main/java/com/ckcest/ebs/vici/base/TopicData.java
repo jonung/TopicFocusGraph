@@ -21,6 +21,6 @@ public class TopicData {
 	public static Map<String,Set<String>> topic2Clc = new HashMap<String,Set<String>>();
 	//topic统计次数
 	public static Map<String,Integer> topic2Num = new HashMap<String,Integer>();
-	
-	
+	//每个topic对应的focus
+	public static Map<String,Set<String>> topic2Focus = new HashMap<String,Set<String>>();
 }

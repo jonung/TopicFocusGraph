@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+import com.ckcest.ebs.vici.util.HanZiConversion;
+
  
 /**
  * @ClassName: BookSupport
@@ -121,7 +123,7 @@ public class BookSupport {
 	 */
 		
 	public static int isShuziLevel(String catalog){
-		String regex = "^[0-9]\u002e?.*";
+		String regex = "^[1-9]?[0-9]\u002e?.*";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher match = pattern.matcher(catalog);
 		
@@ -143,7 +145,7 @@ public class BookSupport {
 	public static String removePrefix(String catalog, int flag){
 		String zhang_regex = "^\u7b2c\u5341?[\u4e00\u4e8c\u4e09\u56db\u4e94\u516d\u4e03\u516b\u4e5d]\u7ae0";
 		String jie_regex = "^\u7b2c\u5341?[\u4e00\u4e8c\u4e09\u56db\u4e94\u516d\u4e03\u516b\u4e5d]\u8282";
-		String shuzi_regex = "^[0-9]\u002e?";
+		String shuzi_regex = "^[1-9]?[0-9]";
 		
 		String regex = "";
 		if(flag == ZHANG_LEVEL){
@@ -159,6 +161,14 @@ public class BookSupport {
 		Matcher match = pattern.matcher(catalog);
 		
 		String res = match.replaceFirst("").trim();
+		//去掉这样的前缀：。
+		//			§.
+		//			附录 得到
+		res = res.substring(res.lastIndexOf(" ") + 1);
+		res = res.substring(res.indexOf(".") + 1);
+		
+		//繁体转简体
+		res = HanZiConversion.convert2SimplifiedChinese(res);
 		log.debug(catalog + "--->" + res);
 		
 		return res;
