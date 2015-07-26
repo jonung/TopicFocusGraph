@@ -2,6 +2,8 @@ package com.ckcest.ebs.vici.extraction;
 
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+
 import com.ckcest.ebs.vici.lucene.BaiduBaikeSearcher;
 import com.ckcest.ebs.vici.lucene.HudongBaikeSearcher;
 import com.ckcest.ebs.vici.lucene.WikiBaikeSearcher;
@@ -15,8 +17,8 @@ import com.ckcest.ebs.vici.lucene.WikiBaikeSearcher;
  * @version V1.0  
  */
 
-public class TopicSupport {
-	
+public class TopicExtractionSupport {
+	private Logger log = Logger.getLogger(TopicExtractionSupport.class);
 	
 	/**
 	 * @Function: getTopic
@@ -29,7 +31,7 @@ public class TopicSupport {
 	 * @throws
 	 */
 		
-	public String getTopic(String initTopic) throws IOException{
+	public static String getTopic(String initTopic) throws IOException{
 		String topic = "";
 		
 		if(isInBaikeEntrey(initTopic)){

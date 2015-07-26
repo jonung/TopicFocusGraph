@@ -13,6 +13,7 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.store.FSDirectory;
 
 import com.ckcest.ebs.vici.base.Book;
+import com.ckcest.ebs.vici.base.BookSupport;
 import com.ckcest.ebs.vici.base.FocusData;
 import com.ckcest.ebs.vici.base.TopicData;
 import com.ckcest.ebs.vici.base.TopicFocusPairData;
@@ -33,19 +34,19 @@ public class App
     {
         System.out.println( "Hello World!" );
         tranverseBook();
-        FileUtil.writeSet2File(TopicData.topicSet, "topicSet.txt");
+        FileUtil.writeSet2File(TopicData.topicSet, "data\\topicSet.txt");
         ArrayList<Entry<String, Integer>> topicArray = SortUtil.sortIntegerMap(TopicData.topic2Num);
-        FileUtil.writeArrayList2File(topicArray, "topic2Num.txt");
+        FileUtil.writeArrayList2File(topicArray, "data\\topic2Num.txt");
         //FileUtil.writeMap2File(TopicData.topic2Num, "topic2Num.txt");
         log.info("Topic num : " + TopicData.topicSet.size());
         log.info("Focus NUm : " + FocusData.focusSet.size());
-        FileUtil.writeSet2File(FocusData.focusSet, "focusSet.txt");
+        FileUtil.writeSet2File(FocusData.focusSet, "data\\focusSet.txt");
         //FileUtil.writeMap2File(FocusData.focus2Num, "focus2Num.txt");
         ArrayList<Entry<String,Integer>> focusArray = SortUtil.sortIntegerMap(FocusData.focus2Num);
-        FileUtil.writeArrayList2File(focusArray , "focus2Num.txt");
+        FileUtil.writeArrayList2File(focusArray , "data\\focus2Num.txt");
         
         ArrayList<Entry<String,Integer>> pariArray = SortUtil.sortIntegerMap(TopicFocusPairData.pairNum);
-        FileUtil.writeArrayList2File(pariArray, "pair.txt");
+        FileUtil.writeArrayList2File(pariArray, "data\\pair.txt");
         
     }
     
@@ -53,17 +54,20 @@ public class App
     	String filePath = AppConfig.getAppConfig().getProperty("Index_MetaTag");
     	IndexReader indexReader = IndexReader.open(FSDirectory.open(new File(filePath)));
     	
+    	int count = 0;
     	for(int i = 0; i < indexReader.numDocs(); i ++){
     		Document doc = indexReader.document(i);
     		String clc = doc.get("CLC");
     		
-    		if(clc != null && clc.startsWith("TP")){
+    		if(clc != null && clc.startsWith("TP") && count < 100){
     			String BookNo = doc.get("BookNo"); 
     			List<String> catalogs = EngineeringBookCatalogSearcher.getCatalogListByBookNo(BookNo);
     			Book book = new Book(BookNo,clc);
     			book.setCatalogs(catalogs);
-    			
+    			book.setSameHieCatalogs(BookSupport.initSameHieChapterMap(catalogs));
     			TopicFocusExtraction.extract(book);
+    			
+    			count ++;
     		}
     		
     	}
