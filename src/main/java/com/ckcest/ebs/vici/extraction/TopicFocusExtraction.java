@@ -1,6 +1,7 @@
 package com.ckcest.ebs.vici.extraction;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import com.ckcest.ebs.vici.base.Book;
+import com.ckcest.ebs.vici.base.CLCData;
 import com.ckcest.ebs.vici.base.FocusData;
 import com.ckcest.ebs.vici.base.TopicData;
 import com.ckcest.ebs.vici.base.TopicFocusPairData;
@@ -41,6 +43,8 @@ public class TopicFocusExtraction {
 	public static void extract(Book book) throws IOException{
 		String bookNo = book.getBookNo();
 		String clc = book.getClc();
+		//分类信息汇总
+		CLCData.clcSet.add(clc);
 		
 		Map<Integer,List<String>> sameHieCatalogs = book.getSameHieCatalogs();
 		for(int i : sameHieCatalogs.keySet()){
@@ -137,11 +141,13 @@ public class TopicFocusExtraction {
 		Integer topicNum = TopicData.topic2Num.get(topic);
 		TopicData.topic2Num.put(topic, topicNum == null ? 1:topicNum + 1);
 		
-		Set<String> clcSet = TopicData.topic2Clc.get(topic);
-		if(clcSet == null)
-			clcSet = new HashSet<String>();
-		clcSet.add(clc);
-		TopicData.topic2Clc.put(topic, clcSet);
+		Map<String,Integer> clcMap = TopicData.topic2Clc.get(topic);
+		if(clcMap == null){
+			clcMap = new HashMap<String,Integer>();
+		}
+		Integer clcNum = clcMap.get(clc);
+		clcMap.put(clc, clcNum == null ? 1 : clcNum + 1);
+		TopicData.topic2Clc.put(topic, clcMap);
 
 	}
 
@@ -151,12 +157,13 @@ public class TopicFocusExtraction {
 		FocusData.focus2Num.put(focus, focusNum == null ? 1 : focusNum + 1);
 		FocusData.focus2Hie.put(focus, focusNum == null ? hie : FocusData.focus2Hie.get(focus) + hie );
 		
-		Set<String> clcSet = FocusData.focus2Clc.get(focus);
-		if(clcSet == null){
-			clcSet = new HashSet<String>();
+		Map<String,Integer> clcMap = FocusData.focus2Clc.get(focus);
+		if(clcMap == null){
+			clcMap = new HashMap<String,Integer>();
 		}
-		clcSet.add(clc);
-		FocusData.focus2Clc.put(focus, clcSet );
+		Integer clcNum = clcMap.get(clc);
+		clcMap.put(clc, clcNum == null ? 1 : clcNum + 1); 
+		FocusData.focus2Clc.put(focus, clcMap );
 	}
 	
 	/**

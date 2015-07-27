@@ -19,6 +19,7 @@ import com.ckcest.ebs.vici.base.TopicData;
 import com.ckcest.ebs.vici.base.TopicFocusPairData;
 import com.ckcest.ebs.vici.extraction.TopicFocusExtraction;
 import com.ckcest.ebs.vici.lucene.EngineeringBookCatalogSearcher;
+import com.ckcest.ebs.vici.neo4j.Neo4jStorage;
 import com.ckcest.ebs.vici.util.FileUtil;
 import com.ckcest.ebs.vici.util.SortUtil;
 
@@ -48,6 +49,7 @@ public class App
         ArrayList<Entry<String,Integer>> pariArray = SortUtil.sortIntegerMap(TopicFocusPairData.pairNum);
         FileUtil.writeArrayList2File(pariArray, "data\\pair.txt");
         
+        Neo4jStorage.setup();
     }
     
     public static void tranverseBook() throws CorruptIndexException, IOException{

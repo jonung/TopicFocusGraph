@@ -177,7 +177,6 @@ public class BookSupport {
 	/*
 	 * 构造一棵目录树
 	 */
-	public static CatalogNode root = new CatalogNode("root","0");
 	
 	public static void constructCatalogTree(List<String> catalogs){
 		
