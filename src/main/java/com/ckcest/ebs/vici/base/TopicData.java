@@ -18,7 +18,7 @@ public class TopicData {
 	//topic集合
 	public static Set<String> topicSet = new HashSet<String>();
 	//topic分类信息
-	public static Map<String,Set<String>> topic2Clc = new HashMap<String,Set<String>>();
+	public static Map<String,Map<String,Integer>> topic2Clc = new HashMap<String,Map<String,Integer>>();
 	//topic统计次数
 	public static Map<String,Integer> topic2Num = new HashMap<String,Integer>();
 	//每个topic对应的focus
