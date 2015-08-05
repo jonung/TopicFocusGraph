@@ -1,18 +1,9 @@
 package com.ckcest.ebs.TopicFocusGraph;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Random;
 
 import org.apache.log4j.Logger;
-
-import com.ckcest.ebs.vici.base.Book;
-import com.ckcest.ebs.vici.base.BookSupport;
-import com.ckcest.ebs.vici.extraction.FocusExtractionSupport;
-import com.ckcest.ebs.vici.lucene.EngineeringBookCatalogSearcher;
-import com.ckcest.ebs.vici.util.HanZiConversion;
 
  
 /**
@@ -74,9 +65,14 @@ public class Test {
 		log.debug(space_str + "--->");
 		*/
 		
-		List<String> focusList = FocusExtractionSupport.getFocusList("政策、标准、大纲和步骤");
-		for(int i = 0; i < focusList.size(); i ++)
-			log.info(focusList.get(i));
+//		List<String> focusList = FocusExtractionSupport.getFocusList("政策、标准、大纲和步骤");
+//		for(int i = 0; i < focusList.size(); i ++)
+//			log.info(focusList.get(i));
+		
+		Random rand = new Random();
+		for(int i = 0 ; i < 30; i ++){
+			log.info(rand.nextInt(1000));
+		}
 	}
 	
 	
