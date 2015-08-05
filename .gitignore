@@ -5,3 +5,5 @@ target
 .project
 data
 neo4j-target
+learntHmm.dot
+FNLP_models

@@ -21,7 +21,7 @@ public class Book {
 	private List<String> catalogs;
 	//书的分类
 	private String clc;
-	
+	//章节已经经过去前缀，繁体转简体
 	private Map<Integer,List<String>> sameHieCatalogs; 
 	
 	public Book(String bookNo , String clc){
