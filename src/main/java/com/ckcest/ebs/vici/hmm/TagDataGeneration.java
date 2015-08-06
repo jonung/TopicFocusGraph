@@ -96,22 +96,17 @@ public class TagDataGeneration {
 					StringBuilder tagStr = new StringBuilder();
 					StringBuilder wordStr = new StringBuilder();
 					
-					for(int m = 0; m < seg_arr[1].length; m ++)
-						tagStr.append(seg_arr[1][m] + " ");
-					
 					for(int m = 0; m < seg_arr[0].length; m ++)
 						wordStr.append(seg_arr[0][m] + " ");
 					
+					for(int m = 0; m < seg_arr[1].length; m ++)
+						tagStr.append(seg_arr[1][m] + " ");
+					
+					
 					String str_in = wordStr.append("\n").append(tagStr).append("\n").toString();
-					try {
-						FileUtil.write2File(str_in, outPath + bookNo + ".txt");
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					FileUtil.write2File(str_in, outPath + bookNo + ".txt");
 				}
 					
-				
 				
 			}
 		}

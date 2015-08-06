@@ -5,6 +5,9 @@ import java.util.Random;
 
 import org.apache.log4j.Logger;
 
+import com.ckcest.ebs.vici.hmm.MyHmmModel;
+import com.ckcest.ebs.vici.hmm.MyHmmModelSupport;
+
  
 /**
  * @ClassName: Test
@@ -69,10 +72,19 @@ public class Test {
 //		for(int i = 0; i < focusList.size(); i ++)
 //			log.info(focusList.get(i));
 		
+		/*
 		Random rand = new Random();
 		for(int i = 0 ; i < 30; i ++){
 			log.info(rand.nextInt(1000));
 		}
+		*/
+		
+		MyHmmModelSupport m = new MyHmmModelSupport("D:\\gongjun\\workspace4\\TopicFocusGraph\\data\\hmm\\tagDataForHMM\\");
+		m.init();
+		
+		MyHmmModel myhmm = m.getMyHmm();
+		
+		log.info(myhmm.toString());
 	}
 	
 	

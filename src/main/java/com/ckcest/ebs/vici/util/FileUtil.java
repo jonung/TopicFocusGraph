@@ -21,7 +21,6 @@ import java.util.Set;
 
 public class FileUtil {
 	
-	
 	/**
 	 * @throws IOException 
 	 * @Function: write2File
@@ -33,21 +32,27 @@ public class FileUtil {
 	 * @throws
 	 */
 		
-	public static void write2File(String str_in, String out_path) throws IOException{
+	public static void write2File(String str_in, String out_path) {
 		File file =new File(out_path);
-		if(file.exists()==false)
-			file.createNewFile();
-		FileWriter fw = new FileWriter(file,true);//true代表追加写入
-        // 将缓冲对文件的输出
-        BufferedWriter bw = new BufferedWriter(fw); 
-        // 定义一个String类型的变量,用来每次读取一行
-        // 写入文件
-        bw.write(str_in);      
-        bw.newLine();
-        // 刷新该流的缓冲
-        bw.flush(); 
-        bw.close();          
-        fw.close();   
+		try{
+			
+			if(file.exists()==false)
+				file.createNewFile();
+			FileWriter fw = new FileWriter(file,true);//true代表追加写入
+	        // 将缓冲对文件的输出
+	        BufferedWriter bw = new BufferedWriter(fw); 
+	        // 定义一个String类型的变量,用来每次读取一行
+	        // 写入文件
+	        bw.write(str_in);      
+	        bw.newLine();
+	        // 刷新该流的缓冲
+	        bw.flush(); 
+	        bw.close();          
+	        fw.close();   
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 	}
 	
 	

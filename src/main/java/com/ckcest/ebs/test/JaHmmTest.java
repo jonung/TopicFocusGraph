@@ -1,9 +1,19 @@
 package com.ckcest.ebs.test;
 
- import java.util.*;
+ import java.io.FileReader;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.List;
 
-import be.ac.ulg.montefiore.run.jahmm.*;
+import be.ac.ulg.montefiore.run.jahmm.Hmm;
+import be.ac.ulg.montefiore.run.jahmm.Observation;
+import be.ac.ulg.montefiore.run.jahmm.ObservationDiscrete;
+import be.ac.ulg.montefiore.run.jahmm.ObservationVector;
+import be.ac.ulg.montefiore.run.jahmm.OpdfDiscrete;
+import be.ac.ulg.montefiore.run.jahmm.OpdfDiscreteFactory;
 import be.ac.ulg.montefiore.run.jahmm.draw.GenericHmmDrawerDot;
+import be.ac.ulg.montefiore.run.jahmm.io.ObservationSequencesReader;
+import be.ac.ulg.montefiore.run.jahmm.io.ObservationVectorReader;
 import be.ac.ulg.montefiore.run.jahmm.learn.BaumWelchLearner;
 import be.ac.ulg.montefiore.run.jahmm.toolbox.KullbackLeiblerDistanceCalculator;
 import be.ac.ulg.montefiore.run.jahmm.toolbox.MarkovGenerator;
@@ -113,16 +123,32 @@ public class JaHmmTest {
 		
 		List<ObservationDiscrete<Packet>> testSequence = 
 			new ArrayList<ObservationDiscrete<Packet>>(); 
+		//testSequence.add(packetOk);
 		testSequence.add(packetOk);
+		testSequence.add(packetLoss);
+		testSequence.add(packetLoss);
+		testSequence.add(packetLoss);
 		testSequence.add(packetOk);
 		testSequence.add(packetLoss);
 		
 		System.out.println("Sequence probability: " +
 				learntHmm.probability(testSequence));
+		int[] res = learntHmm.mostLikelyStateSequence(testSequence);
 		
+		System.out.println("state sequentc: " );
+		for(int i : res)
+			System.out.println(res[i]);
 		/* Write the final result to a 'dot' (graphviz) file. */
 		
 		(new GenericHmmDrawerDot()).write(learntHmm, "learntHmm.dot");
+		
+		
+		/*
+		Reader reader = new FileReader("vectors.seq");
+		List<List<ObservationVector>> v = ObservationSequencesReader.
+		  readSequences(new ObservationVectorReader(2), reader);
+		reader.close();
+		*/
 	}
 	
 	
