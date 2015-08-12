@@ -51,7 +51,12 @@ public class CatalogEntrySupport {
 			bacPos = seg_arr[1][0];
 			HmmObservation posPair = new PosPair(startPos, bacPos);
 			
-			observationSequenc.add(new ObservationInteger(HMMDictionary.getObservationDic().get(posPair)));
+			if(HMMDictionary.getObservationDic().get(posPair) == null){
+				catalogEntry.setValid(false);
+			
+			}
+			else
+				observationSequenc.add(new ObservationInteger(HMMDictionary.getObservationDic().get(posPair)));
 			
 			for(int m = 0; m < catalogEntry.getSegArr()[1].length - 1; m ++){
 				prePos = seg_arr[1][m];
@@ -59,14 +64,27 @@ public class CatalogEntrySupport {
 				posPair = new PosPair(prePos, bacPos);
 				
 				log.debug(posPair.toString());
+				if(HMMDictionary.getObservationDic().get(posPair) == null){
+					catalogEntry.setValid(false);
+					break;
+				}
+					
+				
 				
 				observationSequenc.add(new ObservationInteger(HMMDictionary.getObservationDic().get(posPair)));
 			}
 			
 			posPair = new PosPair(seg_arr[1][seg_arr[1].length - 1], endPos);
-			observationSequenc.add(new ObservationInteger(HMMDictionary.getObservationDic().get(posPair)));
+			if(HMMDictionary.getObservationDic().get(posPair) == null){
+				catalogEntry.setValid(false);
+				
+			}
+			else{
+				observationSequenc.add(new ObservationInteger(HMMDictionary.getObservationDic().get(posPair)));
 			
-			catalogEntry.setObservationSequence(observationSequenc);
+				catalogEntry.setObservationSequence(observationSequenc);
+				catalogEntry.setValid(true);
+			}
 		}
 		
 		

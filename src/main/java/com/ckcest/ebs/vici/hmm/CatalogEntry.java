@@ -14,17 +14,20 @@ import be.ac.ulg.montefiore.run.jahmm.ObservationInteger;
  */
 
 public class CatalogEntry {
+	//目录内容
 	private String catalog;
+	//复旦nlp分词结果，第一行是word，第二行是对应的词性标注
 	private String[][] segArr;
+	//词性对
 	private PosPair[] posPairArr;
-	
+	//jahmm观察序列
 	private List<ObservationInteger> observationSequence;
-	
+	//jahmm得到的隐藏状态序列
 	private int[] stateSquence;
-	
+	//被[]包含的短语
 	private List<String> res;
-
-
+	//该目录是否有效
+	private boolean valid;
 	
 	/**
 	 * <p>Function: </p>
@@ -132,6 +135,24 @@ public class CatalogEntry {
 	public void setRes(List<String> res) {
 		this.res = res;
 	}
+
+	/**
+	 * @return valid
+	 */
+	
+	public boolean isValid() {
+		return valid;
+	}
+
+	/**
+	 * @param valid 要设置的 valid
+	 */
+	
+	public void setValid(boolean valid) {
+		this.valid = valid;
+	}
+
+	
 	
 	
 }

@@ -67,21 +67,26 @@ public class FileUtil {
 	 * @throws
 	 */
 		
-	public static void overWrite2File(String str_in, String out_path) throws IOException{
-		File file =new File(out_path);// 
-		if(file.exists()==false)
-			file.createNewFile();
-		FileWriter fw = new FileWriter(file,false);//true代表追加写入
-        // 将缓冲对文件的输出
-        BufferedWriter bw = new BufferedWriter(fw); 
-        // 定义一个String类型的变量,用来每次读取一行
-        // 写入文件
-        bw.write(str_in);      
-        bw.newLine();
-        // 刷新该流的缓冲
-        bw.flush(); 
-        bw.close();          
-        fw.close(); 
+	public static void overWrite2File(String str_in, String out_path) {
+		try{
+			File file =new File(out_path);// 
+			if(file.exists()==false)
+				file.createNewFile();
+			FileWriter fw = new FileWriter(file,false);//true代表追加写入
+	        // 将缓冲对文件的输出
+	        BufferedWriter bw = new BufferedWriter(fw); 
+	        // 定义一个String类型的变量,用来每次读取一行
+	        // 写入文件
+	        bw.write(str_in);      
+	        bw.newLine();
+	        // 刷新该流的缓冲
+	        bw.flush(); 
+	        bw.close();          
+	        fw.close(); 
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 	}
 	
 	
