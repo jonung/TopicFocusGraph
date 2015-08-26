@@ -1,4 +1,4 @@
-package tw.edu.ntu.csie.libsvm;
+package libsvm;
 public class svm_parameter implements Cloneable,java.io.Serializable
 {
 	/* svm_type */

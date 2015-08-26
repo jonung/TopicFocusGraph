@@ -3,7 +3,7 @@
 
 
 
-package tw.edu.ntu.csie.libsvm;
+package libsvm;
 import java.io.*;
 import java.util.*;
 

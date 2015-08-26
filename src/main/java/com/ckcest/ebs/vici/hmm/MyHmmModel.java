@@ -115,9 +115,33 @@ public class MyHmmModel {
 	public String toString() {
 		
 		StringBuilder sb = new StringBuilder();
+		sb.append("nState:" + pi.length + "\n");
+		sb.append("nObservation:" + b[0].length + "\n");
+		
+		for(int i = 0; i < pi.length; i ++){
+			if(i == 0)	sb.append(String.valueOf(pi[i]));
+			else	sb.append(" " + String.valueOf(pi[i]));			
+			
+		}
 		sb.append("\n");
-		sb.append("nState: " + pi.length + "\n");
-		sb.append("nObservation: " + b[0].length);
+		
+		for(int i = 0; i < a.length; i ++){
+			for(int j = 0; j < a[0].length; j ++){
+				if(j == 0)	sb.append(String.valueOf(a[i][j]));
+				else 	sb.append(" " + String.valueOf(a[i][j]));
+
+			}
+			sb.append("\n");
+		}
+		
+		for(int i = 0; i < b.length; i ++){
+			for(int j = 0; j < b[0].length; j ++){
+				if(j == 0)	sb.append(String.valueOf(b[i][j]));
+				else 	sb.append(" " + String.valueOf(b[i][j]));
+
+			}
+			sb.append("\n");
+		}
 		
 		/*
 		for(double d : pi)

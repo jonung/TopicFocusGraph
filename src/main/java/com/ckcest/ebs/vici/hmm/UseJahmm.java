@@ -22,7 +22,7 @@ import be.ac.ulg.montefiore.run.jahmm.learn.BaumWelchLearner;
 public class UseJahmm {
 	private static Logger log = Logger.getLogger(UseJahmm.class);
 	//hmm学习时的迭代次数	
-	private final static int ITERATION_NUM = 10;
+	private final static int ITERATION_NUM = 50;
 	
 	
 	/**

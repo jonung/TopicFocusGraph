@@ -33,6 +33,7 @@ public class MyHmmModelSupport {
 	//比如说一个key可以是: 名词-I-名词
 	private Map<ObservationOccurWithState,Integer> observationWithState2Num = new HashMap<ObservationOccurWithState,Integer>();
 	
+	
 	//隐藏状态集合
 	private Map<String,Double> state2Pi = new HashMap<String,Double>();
 	
@@ -161,9 +162,21 @@ public class MyHmmModelSupport {
 				Tag2Tag t2t = new Tag2Tag(curTag, tagArr[j]);
 				incrementValueInMap(statePair2Num, t2t);
 			}
+			
+			
 		}
 	}
 	
+	
+	/**
+	 * @Function: calculateParam
+	 * @Description: TODO
+	 * @param     
+	 * @return void    
+	 * @date 2015年8月13日 下午4:10:16
+	 * @throws
+	 */
+		
 	private void calculateParam(){
 		int nState = state2Pi.size();
 		int nObservation = observationSet.size();
@@ -213,12 +226,22 @@ public class MyHmmModelSupport {
 			PosPairWithTag pos2Tag = (PosPairWithTag) observatino2tag;
 			
 			String tag = pos2Tag.getTag();
-			double value = (double) observationWithState2Num.get(observatino2tag) / (double) state2Num.get(tag);
+			//引入拉普拉斯平滑
+			double value = (double) ( observationWithState2Num.get(observatino2tag) + 1 ) / (double) ( state2Num.get(tag) + observationSet.size());
 			
 			int i = HMMDictionary.getStateDic().get(tag);
 			int j = HMMDictionary.getObservationDic().get(pos2Tag.getPosPair());
 			
 			B[i][j] = value;
+		}
+		//平滑处理
+		for(int i = 0; i < B.length; i ++){
+			for(int j = 0; j < B[0].length; j ++){
+				if(B[i][j] == 0.0){
+					String tag = HMMDictionary.getNum2StateDic().get(i);
+					B[i][j] = 1.0 / (double) (state2Num.get(tag) + observationSet.size());
+				}
+			}
 		}
 		
 		double[] pi = new double[state2Pi.size()];
@@ -228,6 +251,75 @@ public class MyHmmModelSupport {
 		}
 		
 		myHmm = new MyHmmModel(pi, A, B);
+	}
+	
+	
+	/**
+	 * @Function: loadHmmModel
+	 * @Description: 从本地加载一个训练好的hmm模型
+	 * @param @param modelPath
+	 * @param @return    
+	 * @return MyHmmModel    
+	 * @date 2015年8月13日 下午6:53:20
+	 * @throws
+	 */
+		
+	public static MyHmmModel loadHmmModel(String modelPath){
+		int nState = 0;
+		int nObser = 0;
+		
+		double[] pi = null;
+		double[][] A= null;
+		double[][] B = null;
+		
+		File modleFile = new File(modelPath);
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(modleFile));
+			String line = br.readLine();
+			//read nState and nObser
+			nState = Integer.parseInt(line.split(":")[1]);
+			line = br.readLine();
+			nObser = Integer.parseInt(line.split(":")[1]);
+			
+			pi = new double[nState];
+			A = new double[nState][nState];
+			B = new double[nState][nObser];
+			//read pi
+			line = br.readLine();
+			String[] piStr = line.split(" ");
+			for(int i = 0; i < piStr.length; i ++){
+				double temp = Double.parseDouble(piStr[i]);
+				pi[i] = temp;
+			}
+			//read A
+			for(int m = 0; m < nState; m ++){
+				line = br.readLine();
+				String[] aa = line.split(" ");
+				for(int i = 0; i < aa.length; i ++){
+					double temp = Double.parseDouble(aa[i]);
+					A[m][i] = temp;
+				}
+			}
+			//read B
+			for(int m = 0; m < nState; m ++){
+				line = br.readLine();
+				String[] bb = line.split(" ");
+				for(int i = 0; i < bb.length; i ++){
+					double temp = Double.parseDouble(bb[i]);
+					B[m][i] = temp;
+				}
+			}
+			
+			br.close();
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		MyHmmModel myHmm = new MyHmmModel(pi, A, B);
+		
+		return myHmm;
 	}
 	
 	/**

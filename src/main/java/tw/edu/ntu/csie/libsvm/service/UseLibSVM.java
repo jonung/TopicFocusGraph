@@ -35,7 +35,7 @@ public class UseLibSVM {
 		arg[1] = SVM_BASE_PATH + "svm_model.txt";
 		
 		String[] parg = new String[3];
-		parg[0] = SVM_BASE_PATH + "t";
+		parg[0] = SVM_BASE_PATH + "heart_scale";
 		parg[1] = SVM_BASE_PATH + "svm_model.txt";
 		parg[2] = SVM_BASE_PATH + "out.txt";
 		

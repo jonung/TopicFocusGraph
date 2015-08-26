@@ -33,6 +33,7 @@ public class CatalogEntrySupport {
 	 */
 		
 	public static CatalogEntry getACatalogEntry(String catalog){
+		log.debug("generate a catalogEntry by " + catalog);
 		CatalogEntry catalogEntry = new CatalogEntry(catalog);
 		
 		String[][] seg_arr = FNLP.getInstance().tag(catalogEntry.getCatalog());
@@ -53,7 +54,7 @@ public class CatalogEntrySupport {
 			
 			if(HMMDictionary.getObservationDic().get(posPair) == null){
 				catalogEntry.setValid(false);
-			
+				return catalogEntry;
 			}
 			else
 				observationSequenc.add(new ObservationInteger(HMMDictionary.getObservationDic().get(posPair)));
@@ -105,6 +106,7 @@ public class CatalogEntrySupport {
 	 */
 		
 	public static CatalogEntry parseStateSequence(CatalogEntry catalogEntry){
+		log.debug("parse state sequence");
 		List<String> res = new ArrayList<String>();
 		
 		int[] stateSequence = catalogEntry.getStateSquence();
@@ -112,22 +114,31 @@ public class CatalogEntrySupport {
 			String curStr = HMMDictionary.getNum2StateDic().get(stateSequence[i]);
 			
 			
-			if(curStr == "["){
+			if(curStr.equals("[")){
 				StringBuilder sb = new StringBuilder();
 				boolean flag = false;
-				sb.append(catalogEntry.getSegArr()[0][i]);
+				if(i < catalogEntry.getSegArr()[0].length )
+					sb.append(catalogEntry.getSegArr()[0][i]);
 				
 				i = i + 1;
 				while(i < stateSequence.length ){
 					String next = HMMDictionary.getNum2StateDic().get(stateSequence[i]);
-					if(next == "I"){
-						sb.append(catalogEntry.getSegArr()[0][i]);
+					if(next.equals("I")){
+						if(i < catalogEntry.getSegArr()[0].length ){
+							sb.append(catalogEntry.getSegArr()[0][i]);
+							
+						}
 						i ++;
 					}
-					else if(next == "]"){
+					else if(next.equals("]")){
 						//sb.append(catalogEntry.getSegArr()[0][i]);
 						flag = true;
 						//i ++;
+						break;
+					}
+					else if(next.equals("][")){
+						flag = true;
+						stateSequence[i] = HMMDictionary.getStateDic().get("[");
 						break;
 					}
 					else{

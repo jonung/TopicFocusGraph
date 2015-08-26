@@ -1,4 +1,4 @@
-package tw.edu.ntu.csie.libsvm;
+package libsvm;
 public class svm_problem implements java.io.Serializable
 {
 	public int l;

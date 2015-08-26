@@ -4,11 +4,18 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import org.neo4j.io.fs.FileUtils.MaybeWindowsMemoryMappedFileReleaseProblem;
 
  
 /**
@@ -165,4 +172,26 @@ public class FileUtil {
 		}
 		overWrite2File(sb.toString(), out_path);
 	}
+	
+	
+	/**
+	 * @Function: deleteFileInDirectory
+	 * @Description: 删除一个目录下的所有文件
+	 * @param @param directory    
+	 * @return void    
+	 * @date 2015年8月13日 下午3:37:30
+	 * @throws
+	 */
+		
+	public static void deleteFilesInDirectory(String directory){
+		File dir = new File(directory);
+		if( !dir.isDirectory() )	return;
+		
+		File[] list = dir.listFiles();
+		
+		for(File file : list)
+			Neo4jFileUtil.deleteFile(file);
+	}
+	    
+	
 }

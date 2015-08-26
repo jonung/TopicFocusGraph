@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+import com.ckcest.ebs.test.CatalogItemParser;
+import com.ckcest.ebs.vici.util.ChapterStringProcess;
 import com.ckcest.ebs.vici.util.HanZiConversion;
 
  
@@ -45,7 +47,9 @@ public class BookSupport {
 		List<String> zhang_entry = new ArrayList<String>();
 		for(int i = 0; i < catalogs.size(); i ++){
 			while(i < catalogs.size() && isZhangLevel(catalogs.get(i)) == ZHANG_LEVEL){
-				zhang_entry.add(removePrefix(catalogs.get(i), ZHANG_LEVEL));
+				String ch = removePrefix(catalogs.get(i), ZHANG_LEVEL);
+				if(ch != null && ch != " " && ch.length() > 0 )
+					zhang_entry.add(ch);
 				i ++;
 			}
 			
@@ -58,7 +62,11 @@ public class BookSupport {
 				}
 				else{
 					flag = isJieLevel(catalogs.get(i)) == JIE_LEVEL ? JIE_LEVEL : SHUZI_LEVEL;
-					jie_shuzi_entry.add(removePrefix(catalogs.get(i), flag));
+					String ch = removePrefix(catalogs.get(i), flag);
+					
+					if(ch != null && ch != " " && ch.length() > 0 )
+						jie_shuzi_entry.add(ch);
+					
 				}
 			}
 			
@@ -143,6 +151,8 @@ public class BookSupport {
 	 */
 		
 	public static String removePrefix(String catalog, int flag){
+		
+		/*
 		String zhang_regex = "^\u7b2c\u5341?[\u4e00\u4e8c\u4e09\u56db\u4e94\u516d\u4e03\u516b\u4e5d]\u7ae0";
 		String jie_regex = "^\u7b2c\u5341?[\u4e00\u4e8c\u4e09\u56db\u4e94\u516d\u4e03\u516b\u4e5d]\u8282";
 		String shuzi_regex = "^[1-9]?[0-9]";
@@ -167,9 +177,14 @@ public class BookSupport {
 		res = res.substring(res.lastIndexOf(" ") + 1);
 		res = res.substring(res.indexOf(".") + 1);
 		
+		
 		//繁体转简体
 		res = HanZiConversion.convert2SimplifiedChinese(res);
 		log.debug(catalog + "--->" + res);
+		*/
+		
+		String res = ChapterStringProcess.preProcessChapter(catalog);
+		
 		
 		return res;
 	}

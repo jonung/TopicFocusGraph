@@ -1,4 +1,4 @@
-package tw.edu.ntu.csie.libsvm;
+package libsvm;
 public class svm_node implements java.io.Serializable
 {
 	public int index;
