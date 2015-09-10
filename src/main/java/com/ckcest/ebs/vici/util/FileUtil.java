@@ -194,4 +194,19 @@ public class FileUtil {
 	}
 	    
 	
+	/**
+	 * @Function: deleteExistFile
+	 * @Description: 删除本地 存在的一个文件
+	 * @param @param filePath    
+	 * @return void    
+	 * @date 2015年8月27日 下午1:24:46
+	 * @throws
+	 */
+		
+	public static void deleteExistFile(String filePath){
+		File file = new File(filePath);
+		if(file.exists())
+			Neo4jFileUtil.deleteFile(file);
+	}
+	
 }

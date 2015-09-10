@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import com.ckcest.ebs.vici.hmm.MyHmmModel;
 import com.ckcest.ebs.vici.hmm.MyHmmModelSupport;
+import com.ckcest.ebs.vici.nlp.FNLP;
 
  
 /**
@@ -79,12 +80,25 @@ public class Test {
 		}
 		*/
 		
+		/*
 		MyHmmModelSupport m = new MyHmmModelSupport("D:\\gongjun\\workspace4\\TopicFocusGraph\\data\\hmm\\tagDataForHMM\\");
 		m.init();
 		
 		MyHmmModel myhmm = m.getMyHmm();
 		
 		log.info(myhmm.toString());
+		*/
+		
+		String[][] arr = FNLP.getInstance().tag("中国人的特点");
+		for(int i = 0; i  < arr.length; i ++){
+			for(int j = 0; j < arr[i].length; j ++){
+				System.out.print(arr[i][j] + " ");
+				if(arr[i][j].equals("结构助词"))
+					System.out.println("mmm");
+						
+			}
+			System.out.println();
+		}
 	}
 	
 	

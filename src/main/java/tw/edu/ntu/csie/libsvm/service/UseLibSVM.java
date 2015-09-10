@@ -30,23 +30,41 @@ public class UseLibSVM {
 				"trainfile\\out_r.txt" }; // 生成的结果的文件的路径
 		
 		*/
-		String[] arg = new String[2];
-		arg[0] = SVM_BASE_PATH + "heart_scale";
-		arg[1] = SVM_BASE_PATH + "svm_model.txt";
 		
+		/*
+		String[] arg = new String[2];
+		arg[0] = SVM_BASE_PATH + "train.txt";
+		arg[1] = SVM_BASE_PATH + "svm_model.txt";
+		*/
 		String[] parg = new String[3];
-		parg[0] = SVM_BASE_PATH + "heart_scale";
+		parg[0] = SVM_BASE_PATH + "test.txt";
 		parg[1] = SVM_BASE_PATH + "svm_model.txt";
 		parg[2] = SVM_BASE_PATH + "out.txt";
 		
-		System.out.println("........SVM运行开始..........");
+		//System.out.println("........SVM运行开始..........");
 		// 创建一个训练对象
-		svm_train t = new svm_train();
+		//svm_train t = new svm_train();
 		// 创建一个预测或者分类的对象
 		svm_predict p = new svm_predict();
 		
-		t.main(arg); // 调用
+		//t.main(arg); // 调用
 		p.main(parg); // 调用
 	
+	}
+	
+	public static void predict(){
+		String[] parg = new String[3];
+		parg[0] = SVM_BASE_PATH + "test.txt";
+		parg[1] = SVM_BASE_PATH + "svm_model.txt";
+		parg[2] = SVM_BASE_PATH + "out.txt";
+		svm_predict p = new svm_predict();
+
+		try {
+			p.main(parg);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} // 调用
+
 	}
 }

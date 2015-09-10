@@ -40,7 +40,7 @@ public class BookDocumentSupport {
 		File file = new File(filePath);
 		
 		String bookNo = file.getName().substring(0, file.getName().indexOf('.'));
-		
+		log.info("load book : " + bookNo);
 		BookDocument bookDocument = new BookDocument(bookNo);
 		List<SampleEntry> entryList = new ArrayList<SampleEntry>();
 		
@@ -98,7 +98,11 @@ public class BookDocumentSupport {
 		int[] label = new int[tmp.length];
 		for(int i = 0; i< tmp.length; i ++){
 			//log.debug(tmp[i] + " ");
-			label[i] = Integer.parseInt(tmp[i].charAt(1) + "");
+			try{
+				label[i] = Integer.parseInt(tmp[i].charAt(1) + "");
+			}catch( java.lang.NumberFormatException e){
+				label[i] = 2;
+			}
 		}
 		
 		sampleEntry.setCatalog(catalog);
@@ -125,7 +129,10 @@ public class BookDocumentSupport {
 	}
 	
 	public static void main(String[] args){
-		BookDocument bookDocument = createBookDocument("D:\\gongjun\\workspace4\\TopicFocusGraph\\data\\classification\\corpus\\03019588_1.txt");
-		System.out.println(bookDocument.toString());
+		BookDocument bookDocument = createBookDocument("D:\\gongjun\\workspace4\\TopicFocusGraph\\data\\classification\\corpus\\06320332_1.txt");
+		
+		System.out.println(bookDocument.getEntryList().size());
+		for(int i = 0; i < bookDocument.getEntryList().size(); i ++)
+			EntryFeatureExtraction.extractionSampleEntry(bookDocument.getEntryList(),i);
 	}
 }
